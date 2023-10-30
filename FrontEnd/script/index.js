@@ -5,6 +5,7 @@ async function main(){
     let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
 
     genereProjets(projets);
+    gestionEvenementFiltre();
 
 };
 
@@ -27,5 +28,11 @@ function genereProjets(projets){
         conteneurPrincipal.appendChild(conteneurProjet);
 
     };
+
+};
+
+function gestionEvenementFiltre(){
+
+    
 
 };

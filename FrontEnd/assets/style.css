@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, button {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -90,7 +90,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 nav ul {
 	display: flex;
@@ -131,6 +131,36 @@ li:hover {
 
 #introduction p {
 	margin-bottom: 0.5em;
+}
+
+.filtres{
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+button{
+	width: auto;
+	color: #1D6154;
+	background-color: white;
+	font-size: 1.1em;
+	font-weight: 600;
+
+	padding: 10px;
+	border: 1px solid;
+	border-radius: 45px;
+	border-color: #1D6154;
+
+}
+
+.btn-tous,.btn-objets{
+	width: 100px;
+	padding: 0 10px;
+}
+
+button:hover{
+	color: white;
+	background-color: #1D6154;
 }
 
 #portfolio h2 {
