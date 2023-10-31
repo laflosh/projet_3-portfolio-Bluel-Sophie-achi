@@ -4,16 +4,19 @@ async function main(){
 
     let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
 
-    genereProjets(projets);
-    gestionEvenementFiltre();
+    afficherProjets(projets);
+    gestionEvenementFiltre(projets);
 
 };
 
-function genereProjets(projets){
+function afficherProjets(projets){
+
+    document.querySelector(".gallery").innerHTML = "";
+
+    let conteneurPrincipal = document.querySelector(".gallery");
 
     for (let i = 0 ; i < projets.length ; i++){
 
-        let conteneurPrincipal = document.querySelector(".gallery");
         let conteneurProjet = document.createElement("figure");
 
         let imageProjets = document.createElement("img");
@@ -31,81 +34,58 @@ function genereProjets(projets){
 
 };
 
-async function gestionEvenementFiltre(){
+async function gestionEvenementFiltre(projets){
 
-    let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
     let categories = await fetch("http://localhost:5678/api/categories").then(categories => categories.json());
 
 
-    let btnTous = document.querySelector(".btn-tous");
+    let btnTous = document.getElementById("btnFiltreTous");
     btnTous.addEventListener("click", () => {
 
-        document.querySelector(".gallery").innerHTML = "";
-        genereProjets(projets);
+        afficherProjets(projets);
 
     });
 
 
-    let btnObjets = document.querySelector(".btn-objets");
+    let btnObjets = document.getElementById("btnFiltreObjets");
     btnObjets.addEventListener("click", () => {
 
-        let projetsObjets = Array.from(projets);
-
-        for (let i = projetsObjets.length -1 ; i >= 0 ; i--){
-
-            if (projetsObjets[i].categoryId !== categories[0].id){
-        
-                projetsObjets.splice(i ,1 );
-        
-            };
-        
-        };
-
-        document.querySelector(".gallery").innerHTML = "";
-        genereProjets(projetsObjets);
+        afficherProjets(filtreProjets(projets, categories[0]));
 
     });
 
 
-    let btnApt = document.querySelector(".btn-apt");
+    let btnApt = document.getElementById("btnFiltreAppartement");
     btnApt.addEventListener("click", () => {
 
-        let projetsApt = Array.from(projets);
-
-        for (let i = projetsApt.length -1 ; i >= 0 ; i--){
-
-            if (projetsApt[i].categoryId !== categories[1].id){
-        
-                projetsApt.splice(i ,1 );
-        
-            };
-        
-        };
-
-        document.querySelector(".gallery").innerHTML = "";
-        genereProjets(projetsApt);
+        afficherProjets(filtreProjets(projets, categories[1]));
 
     });
 
 
-    let btnHotel = document.querySelector(".btn-hotels");
+    let btnHotel = document.getElementById("btnFiltreHotel");
     btnHotel.addEventListener("click", () => {
-
-        let projetsHotel = Array.from(projets);
-
-        for (let i = projetsHotel.length -1 ; i >= 0 ; i--){
-
-            if (projetsHotel[i].categoryId !== categories[2].id){
-        
-                projetsHotel.splice(i ,1 );
-        
-            };
-        
-        };
-
-        document.querySelector(".gallery").innerHTML = "";
-        genereProjets(projetsHotel);
+    
+        afficherProjets(filtreProjets(projets, categories[2]));
 
     });
 
 };
+
+function filtreProjets(projets,categories){
+
+    let projetsFiltrer = Array.from(projets);
+
+    for (let i = projetsFiltrer.length -1 ; i >= 0 ; i--){
+
+        if (projetsFiltrer[i].categoryId !== categories.id){
+    
+            projetsFiltrer.splice(i ,1 );
+    
+        };
+    
+    };
+    
+    return projetsFiltrer;
+
+}
