@@ -152,6 +152,7 @@ button{
 	background-color: white;
 	font-size: 1.1em;
 	font-weight: 600;
+	cursor: pointer;
 
 	padding: 10px;
 	border: 1px solid;
@@ -235,6 +236,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {
@@ -277,4 +279,17 @@ footer nav ul {
 	height: 35px;
 	font-size: 1em;
 	font-weight: 500;
+}
+
+#messageErreur{
+	display: block;
+	width: 100%;
+	font-size: 1.2em;
+	font-weight: 500;
+
+	margin-bottom: 25px;
+	padding: 10px;
+
+	border: red 3px solid;
+	border-radius: 15px;
 }

@@ -1,3 +1,5 @@
+let tokenAdmin = null;
+
 main ();
 /*
 Compte de test pour Sophie Bluel
@@ -23,9 +25,20 @@ function connexionAdministrateur(){
 
         event.preventDefault();
 
-        let tokenAdmin = recupererToken(event);
+        tokenAdmin = recupererToken(event);
 
-        console.log(tokenAdmin);
+        tokenAdmin.then(function(resultat){
+        
+            if (resultat.userId === 1) {
+
+                redirectionPageProjet();
+    
+            } else if (resultat.message === "user not found") {
+                
+                affichageMessageErreur();
+    
+            };    
+        });
 
     });
 
@@ -62,8 +75,26 @@ function envoieIdentifiantUtilisateur(event){
 
 };
 
+function redirectionPageProjet(){
+
+    document.location.href="index.html";
+
+}
+
+function sauvegardeLocalstorage(){
+
+
+
+}
+
 function affichageMessageErreur(){
 
+    let formConnexionAdmin = document.getElementById("login");
 
+    let messageErreur = document.createElement("span");
+    messageErreur.innerText = "L'e-mail ou le mot de passe est incorrect";
+    messageErreur.setAttribute("id", "messageErreur");
+
+    formConnexionAdmin.appendChild(messageErreur);
 
 };
