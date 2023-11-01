@@ -4,8 +4,25 @@ async function main(){
 
     let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
 
-    afficherProjets(projets);
-    gestionEvenementFiltre(projets);
+    let tokenAdmin = window.localStorage.getItem("token");
+    tokenAdmin = JSON.parse(tokenAdmin);
+
+    console.log(tokenAdmin);
+
+    if (tokenAdmin === null){
+
+        afficherProjets(projets);
+        gestionEvenementFiltre(projets);
+        console.log("pas admin");
+
+    } else if (tokenAdmin.userId === 1){
+
+        afficherProjets(projets);
+        affichageAdmin();
+        affichageModaleModificationProjet();
+        console.log("admin")
+
+    }
 
 };
 
@@ -87,5 +104,35 @@ function filtreProjets(projets,categories){
     };
     
     return projetsFiltrer;
+
+}
+
+function affichageAdmin(){
+
+    let boutonsFiltres = document.querySelector(".filtres");
+    boutonsFiltres.style.display = "none";
+
+    let titreProjets = document.querySelector("#portfolio h2");
+    titreProjets.style.margin = "0 0 95px 0";
+
+    let lienLogIn = document.getElementById("lienLogIn");
+
+    let lienLogOut = document.createElement("a");
+    lienLogOut.setAttribute("href", "index.html");
+    lienLogOut.innerText = "logout";
+
+    lienLogIn.replaceChildren(lienLogOut);
+
+    lienLogOut.addEventListener("click", () => {
+
+        window.localStorage.removeItem("token");
+
+    })
+
+}
+
+function affichageModaleModificationProjet(){
+
+
 
 }

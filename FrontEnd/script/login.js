@@ -33,7 +33,6 @@ function connexionAdministrateur(){
             if (resultat.userId === 1) {
 
                 sauvegardeLocalstorage(resultat)
-                console.log(resultat);
                 redirectionPageProjet();
     
             } else if (resultat.message === "user not found") {
