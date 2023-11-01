@@ -1,6 +1,7 @@
 let tokenAdmin = null;
 
 main ();
+
 /*
 Compte de test pour Sophie Bluel
 
@@ -31,6 +32,8 @@ function connexionAdministrateur(){
         
             if (resultat.userId === 1) {
 
+                sauvegardeLocalstorage(resultat)
+                console.log(resultat);
                 redirectionPageProjet();
     
             } else if (resultat.message === "user not found") {
@@ -81,9 +84,11 @@ function redirectionPageProjet(){
 
 }
 
-function sauvegardeLocalstorage(){
+function sauvegardeLocalstorage(element){
 
+    let valeursElement = JSON.stringify(element);
 
+    window.localStorage.setItem("token", valeursElement);
 
 }
 
