@@ -67,9 +67,7 @@
 
 		<section id="portfolio">
 
-			<h2>Mes Projets <button id="afficher-modal" style="display: none">modifier</button></h2>
-
-			<a href="#modal-gallerie" id="afficher-modal" style="display: none">modifier</a>
+			<h2>Mes Projets <button id="ouvrir-modal" style="display: none">modifier</button></h2>
 
 			<section class="filtres">
 
@@ -104,11 +102,19 @@
 
 		</section>
 
-		<aside id="modal-gallerie" class="modal" style="display: none">
+		<aside id="modal-galerie" class="modal" aria-hidden="true" style="display: none">
 
-			<div class="modal-contenue">
+			<div class="modal-contenue js-modal-stop">
 
+				<button id="fermer-modal">X</button>
 
+				<h3>Galerie photo</h3>
+
+				<div class="gallery">
+
+				</div>
+
+				<button id="btn-modal-envoie-projet">Ajouter une photo</button>
 
 			</div>
 

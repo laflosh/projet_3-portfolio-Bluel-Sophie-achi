@@ -13,8 +13,11 @@ function main(){
 async function initialisationPage(){
 
     //Récupération des données au lancements de la page
-    let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
-    let categories = await fetch("http://localhost:5678/api/categories").then(categories => categories.json());
+    let projets = await fetch("http://localhost:5678/api/works")
+    .then(projets => projets.json());
+
+    let categories = await fetch("http://localhost:5678/api/categories")
+    .then(categories => categories.json());
 
     afficherProjets(projets);
 
@@ -144,7 +147,7 @@ function verificationAdmin(projets , categories){
 
 function affichageAdmin(){
 
-    let boutonModal = document.getElementById("afficher-modal");
+    let boutonModal = document.getElementById("ouvrir-modal");
     boutonModal.style.display = null;
 
     let boutonsFiltres = document.querySelector(".filtres");
