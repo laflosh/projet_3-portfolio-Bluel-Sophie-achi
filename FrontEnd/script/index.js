@@ -1,30 +1,25 @@
+import  {mainModal}  from "./gestionModal.js";
+
+
+
 main ();
 
-async function main(){
+function main(){
 
-    let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
-
-    let tokenAdmin = window.localStorage.getItem("token");
-    tokenAdmin = JSON.parse(tokenAdmin);
-
-    console.log(tokenAdmin);
-
-    if (tokenAdmin === null){
-
-        afficherProjets(projets);
-        gestionEvenementFiltre(projets);
-        console.log("pas admin");
-
-    } else if (tokenAdmin.userId === 1){
-
-        afficherProjets(projets);
-        affichageAdmin();
-        affichageModaleModificationProjet();
-        console.log("admin")
-
-    }
-
+    initialisationPage()
+    
 };
+
+async function initialisationPage(){
+
+    //Récupération des données au lancements de la page
+    let projets = await fetch("http://localhost:5678/api/works").then(projets => projets.json());
+    let categories = await fetch("http://localhost:5678/api/categories").then(categories => categories.json());
+
+    afficherProjets(projets);
+
+    verificationAdmin(projets , categories);
+}
 
 function afficherProjets(projets){
 
@@ -51,12 +46,31 @@ function afficherProjets(projets){
 
 };
 
-async function gestionEvenementFiltre(projets){
+function afficherBoutonFiltres(categories){
 
-    let categories = await fetch("http://localhost:5678/api/categories").then(categories => categories.json());
+    let conteneurCategorie = document.querySelector(".filtres");
+
+    conteneurCategorie.appendChild(genereBouton('0', 'Tous'));
+
+    for (let i = 0 ; i < categories.length ; i++) {
+        conteneurCategorie.appendChild(genereBouton(categories[i].id, categories[i].name));
+    };
+}
+
+function genereBouton( id, name){
+
+    let btn = document.createElement("button");
+    btn.setAttribute("id", "btn_" + id);
+    btn.setAttribute("class", "btn-" + id);
+    btn.textContent = name;
+
+    return btn;
+}
+
+function gestionEvenementFiltre(projets, categories){
 
 
-    let btnTous = document.getElementById("btnFiltreTous");
+    let btnTous = document.getElementById("btn_0");
     btnTous.addEventListener("click", () => {
 
         afficherProjets(projets);
@@ -64,7 +78,7 @@ async function gestionEvenementFiltre(projets){
     });
 
 
-    let btnObjets = document.getElementById("btnFiltreObjets");
+    let btnObjets = document.getElementById("btn_1");
     btnObjets.addEventListener("click", () => {
 
         afficherProjets(filtreProjets(projets, categories[0]));
@@ -72,7 +86,7 @@ async function gestionEvenementFiltre(projets){
     });
 
 
-    let btnApt = document.getElementById("btnFiltreAppartement");
+    let btnApt = document.getElementById("btn_2");
     btnApt.addEventListener("click", () => {
 
         afficherProjets(filtreProjets(projets, categories[1]));
@@ -80,7 +94,7 @@ async function gestionEvenementFiltre(projets){
     });
 
 
-    let btnHotel = document.getElementById("btnFiltreHotel");
+    let btnHotel = document.getElementById("btn_3");
     btnHotel.addEventListener("click", () => {
     
         afficherProjets(filtreProjets(projets, categories[2]));
@@ -107,7 +121,31 @@ function filtreProjets(projets,categories){
 
 }
 
+function verificationAdmin(projets , categories){
+
+    let tokenAdmin = window.localStorage.getItem("token");
+    tokenAdmin = JSON.parse(tokenAdmin);
+
+    if (tokenAdmin === null){
+
+        afficherBoutonFiltres(categories);
+        gestionEvenementFiltre(projets , categories);
+        console.log("pas admin");
+
+    } else if (tokenAdmin.userId === 1){
+
+        affichageAdmin();
+        mainModal();
+        console.log("admin")
+
+    }
+
+}
+
 function affichageAdmin(){
+
+    let boutonModal = document.getElementById("afficher-modal");
+    boutonModal.style.display = null;
 
     let boutonsFiltres = document.querySelector(".filtres");
     boutonsFiltres.style.display = "none";
@@ -128,11 +166,5 @@ function affichageAdmin(){
         window.localStorage.removeItem("token");
 
     })
-
-}
-
-function affichageModaleModificationProjet(){
-
-
 
 }

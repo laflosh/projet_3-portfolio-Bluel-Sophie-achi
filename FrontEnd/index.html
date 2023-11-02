@@ -67,17 +67,11 @@
 
 		<section id="portfolio">
 
-			<h2>Mes Projets</h2>
+			<h2>Mes Projets <button id="afficher-modal" style="display: none">modifier</button></h2>
+
+			<a href="#modal-gallerie" id="afficher-modal" style="display: none">modifier</a>
 
 			<section class="filtres">
-
-				<button id ="btnFiltreTous" class="btn-tous">Tous</button>
-
-				<button id ="btnFiltreObjets" class="btn-objets">Objets</button>
-
-				<button id ="btnFiltreAppartement" class="btn-apt">Appartements</button>
-
-				<button id ="btnFiltreHotel" class="btn-hotels">Hôtels & restaurants</button>
 
 			</section>
 
@@ -110,6 +104,16 @@
 
 		</section>
 
+		<aside id="modal-gallerie" class="modal" style="display: none">
+
+			<div class="modal-contenue">
+
+
+
+			</div>
+
+		</aside>
+
 	</main>
 
 		<footer>
@@ -124,7 +128,8 @@
 			
 		</footer>
 
-		<script src="script/index.js"></script>
+		<script type="module" src="script/index.js"></script>
+		<script type="module" src="script/gestionModal.js"></script>
 		
 	</body>
 

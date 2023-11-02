@@ -1,6 +1,4 @@
-let tokenAdmin = null;
-
-main ();
+main();
 
 /*
 Compte de test pour Sophie Bluel
@@ -12,78 +10,86 @@ password: S0phie
 ```
 */
 
-function main(){
+function main() {
 
-    connexionAdministrateur()
+    initEvent();
 
 };
 
-function connexionAdministrateur(){
-
+function initEvent() {
     let formConnexionAdmin = document.getElementById("login");
 
-    formConnexionAdmin.addEventListener("submit", (event) =>{
+    formConnexionAdmin.addEventListener("submit", (event) => { valideForm(event) });
+}
 
-        event.preventDefault();
+function valideForm(event) {
 
-        tokenAdmin = recupererToken(event);
+    event.preventDefault();
 
-        tokenAdmin.then(function(resultat){
-        
+    /*
+    //Check des donénes saisient
+    if (!checkForm()) {
+        affichageMessageErreur("L'e-mail ou le mot de passe est incorrect")
+        return;
+    }
+    */
+
+    recupererToken();
+
+};
+
+function recupererToken() {
+
+    let data = {
+
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: recuperationDataDuForm()
+    };
+
+    fetch("http://localhost:5678/api/users/login", data)
+        .then(tokenAdmin => tokenAdmin.json())
+        .then( (resultat) => {
+
             if (resultat.userId === 1) {
 
                 sauvegardeLocalstorage(resultat)
                 redirectionPageProjet();
-    
+
             } else if (resultat.message === "user not found") {
-                
-                affichageMessageErreur();
-    
-            };    
+
+                affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
+
+            }
+        })
+        .catch( (error) => {
+            // gestion de l'erreur pour prévenir l'utilisateur
+            console.log(error);
+            affichageMessageErreur("Le serveur est indisponible, merci de revenir plus tard");
         });
 
-    });
-
 };
 
-async function recupererToken(event){
-
-    let token = await fetch("http://localhost:5678/api/users/login", envoieIdentifiantUtilisateur(event))
-    .then(tokenAdmin => tokenAdmin.json());
-
-    return token;
-
-};
-
-function envoieIdentifiantUtilisateur(event){
+function recuperationDataDuForm() {
 
     let identifiantUtilisateur = {
 
-        email : event.target.querySelector("[name=email]").value,
-        password : event.target.querySelector("[name=motDePasse]").value
+        email: document.querySelector("[name=email]").value,
+        password: document.querySelector("[name=motDePasse]").value
 
     };
 
-    const chargeUtile = JSON.stringify(identifiantUtilisateur);
-
-    let data = {
-
-        method : "POST",
-        headers : {"content-type" : "application/json"},
-        body : chargeUtile
-    };
-
-    return data;
+    return JSON.stringify(identifiantUtilisateur);
 
 };
 
-function redirectionPageProjet(){
+function redirectionPageProjet() {
 
-    document.location.href="index.html";
+    document.location.href = "index.html";
 
 }
 
-function sauvegardeLocalstorage(element){
+function sauvegardeLocalstorage(element) {
 
     let valeursElement = JSON.stringify(element);
 
@@ -91,12 +97,12 @@ function sauvegardeLocalstorage(element){
 
 }
 
-function affichageMessageErreur(){
+function affichageMessageErreur(msg) {
 
     let formConnexionAdmin = document.getElementById("login");
 
     let messageErreur = document.createElement("span");
-    messageErreur.innerText = "L'e-mail ou le mot de passe est incorrect";
+    messageErreur.innerText = msg;
     messageErreur.setAttribute("id", "messageErreur");
 
     formConnexionAdmin.appendChild(messageErreur);

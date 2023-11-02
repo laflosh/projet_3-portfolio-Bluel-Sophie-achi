@@ -161,12 +161,12 @@ button{
 
 }
 
-.btn-tous,.btn-objets{
+.btn-0,.btn-1{
 	width: 100px;
 	padding: 0 10px;
 }
 
-button:hover{
+.gallery button:hover{
 	color: white;
 	background-color: #1D6154;
 }
@@ -244,6 +244,16 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+
+/** Mise en page partie modal **/
+
+#afficher-modal{
+	color: black;
+	font-size: 0.4em;
+	border: none;
+	margin-left: 40px;
+}
+
 
 /** Mise en page login.html **/
 #form-login > *{
