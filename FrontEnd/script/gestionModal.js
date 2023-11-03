@@ -94,7 +94,7 @@ function afficherGallerieProjets(){
 
             for (let i = 0; i < resultat.length ; i++){
 
-                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl));
+                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl, i));
 
             }
 
@@ -104,10 +104,19 @@ function afficherGallerieProjets(){
 
 };
 
-function conteneurImage(image){
+function conteneurImage(image, id){
 
+    let conteneur = document.createElement("div");
+    conteneur.setAttribute("class","imageGalerie");
+    
     let prout = document.createElement("img");
     prout.src = image;
+    let boutonSupprimer = document.createElement("button");
+    boutonSupprimer.setAttribute("id","btnSupprimer_"+ id);
+    boutonSupprimer.innerText = "X";
+
+    conteneur.appendChild(prout);
+    conteneur.appendChild(boutonSupprimer);
     
-    return prout;
+    return conteneur;
 };

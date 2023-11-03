@@ -166,7 +166,7 @@ button{
 	padding: 0 10px;
 }
 
-.gallery button:hover{
+#portfolio .filtres button:hover{
 	color: white;
 	background-color: #1D6154;
 }
@@ -277,6 +277,7 @@ footer nav ul {
 	border-radius: 10px;
 }
 
+/** Mise en page partie modal galerie **/
 .modal .gallery{
 	width: auto;
 	display: flex;
@@ -289,6 +290,29 @@ footer nav ul {
 	gap: 10px;
 	border-bottom: gray 1px solid;
 }
+
+.imageGalerie{
+	width: 50px;
+	position: relative;
+	display: flex;
+	gap: 10px;
+}
+
+.imageGalerie button{
+	color: white;
+	background-color: black;
+	font-size: 0.6em;
+	text-align: center;
+	width: 15px;
+	height: 15px;
+	border: none;
+	border-radius: 3px;
+	padding: 5px;
+	position: absolute;
+	top: 8px;
+	left: 38px;
+}
+
 .modal img{
 	width: 58px;
 	height: 74px;
