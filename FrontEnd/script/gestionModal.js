@@ -96,7 +96,7 @@ function afficherGallerieProjets(){
 
             for (let i = 0; i < resultat.length ; i++){
 
-                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl, i));
+                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl, i + 1));
 
             }
 
@@ -115,7 +115,7 @@ function conteneurImage(image, id){
     prout.src = image;
     let boutonSupprimer = document.createElement("button");
     boutonSupprimer.setAttribute("class","btnSupprimer");
-    boutonSupprimer.setAttribute("id","btnSupprimer_"+ id);
+    boutonSupprimer.setAttribute("id", id);
     boutonSupprimer.innerText = "X";
 
     conteneur.appendChild(prout);
@@ -131,6 +131,7 @@ function gestionEvenementBoutonSupprimer(){
     boutonSupprimerAll.forEach( input => input.addEventListener("click", (event) =>{
 
         recuperationBoutonSupprimerClick(event);
+        afficherGallerieProjets();
 
     }));
 
@@ -138,8 +139,30 @@ function gestionEvenementBoutonSupprimer(){
 
 function recuperationBoutonSupprimerClick(event){
 
-    let boutonCliquer =event.target;
+    let boutonCliquer =event.target.id;
 
     console.log(boutonCliquer);
+    supprimerProjet(boutonCliquer);
 
 };
+
+function supprimerProjet(id){
+
+    let tokenAdmin = localStorage.getItem("token");
+    tokenAdmin = JSON.parse(tokenAdmin);
+
+    console.log(tokenAdmin);
+
+    let data = {
+        method : "DELETE",
+        headers : {
+            "Content-type" : "application/json",
+            "Authorization" : `Bearer : ${tokenAdmin.token}`
+        }
+    };
+
+    console.log(data);
+
+    fetch("http://localhost:5678/api/works/" + id, data);
+
+}
