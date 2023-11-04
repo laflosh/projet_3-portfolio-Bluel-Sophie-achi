@@ -120,6 +120,43 @@
 
 		</aside>
 
+		<aside id="modal-ajout-projet" class="modal" aria-hidden="true" style="display: none">
+
+			<div class="modal-contenue js-modal-stop">
+
+				<button id="fermer-modal-projet"> <--</button>
+
+				<h3>Ajout photo</h3>
+
+				<form class="nouveau-projet">
+
+					<div>
+						<label for="projet" class="btn">+ Ajouter photo</label>
+						<input id="projet" style="visibility:hidden;" type="file" accept=".jpg, .png"required>
+						<p>jpg. png: 4mo max</p>
+					</div>
+
+					<label for="nom-projet">Titre</label>
+					<input type="text" id="nom-projet" name="nom-projet" required>
+					
+					<label for="categorie">Categorie</label>
+					<select name="categorie" id="categorie">
+
+						<option value=""></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hotels & restaurants">Hotels & restaurants</option>
+
+					</select>
+
+				</form>
+
+				<button id="btn-envoie-projet">Valider</button>
+
+			</div>
+
+		</aside>
+
 	</main>
 
 		<footer>

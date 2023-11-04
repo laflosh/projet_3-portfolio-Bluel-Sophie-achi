@@ -46,6 +46,13 @@ function ouvrirModalGallerie(event){
 
     });
 
+    let boutonModalAjoutProjet =document.getElementById("btn-modal-envoie-projet");
+    boutonModalAjoutProjet.addEventListener("click", (event) =>{
+
+        ouvrirModalNouveauProjet(event);
+
+    });
+
 };
 
 function fermerModalGallerie(event){
@@ -75,6 +82,75 @@ function fermerModalGallerie(event){
     });
 
 };
+
+function ouvrirModalNouveauProjet(event){
+
+    event.preventDefault();
+
+    let boiteModal =document.getElementById("modal-galerie");
+    boiteModal.style.display = "none";
+    boiteModal.setAttribute("aria-hidden", true);
+
+    let boiteModalAjout =document.getElementById("modal-ajout-projet");
+    boiteModalAjout.style.display = null;
+    boiteModalAjout.setAttribute("aria-hidden", false);
+
+
+    //Fonction de gestion fermeture modal ajout projet
+    boiteModal.addEventListener("click", (event) => {
+
+        fermerModalAjoutProjet(event);
+
+    }); 
+
+    let boutonFermerModal = document.getElementById("fermer-modal-projet");
+    boutonFermerModal.addEventListener("click", (event) => {
+
+        fermerModalAjoutProjet(event);
+
+    });
+
+    let stopPropagationDiv = document.querySelector("#modal-ajout-projet .js-modal-stop");
+    stopPropagationDiv.addEventListener("click", (event) => {
+
+        stopPropagation(event);
+
+    });
+
+};
+
+function fermerModalAjoutProjet(event){
+
+    
+    event.preventDefault();
+
+    let boiteModal =document.getElementById("modal-galerie");
+    boiteModal.style.display = null;
+    boiteModal.setAttribute("aria-hidden", true);
+
+    let boiteModalAjout =document.getElementById("modal-ajout-projet");
+    boiteModalAjout.style.display = "none";
+    boiteModalAjout.setAttribute("aria-hidden", true);
+
+    boiteModal.removeEventListener("click", (event) => {
+
+        fermerModalAjoutProjet(event);
+
+    })
+    let boutonFermerModal = document.getElementById("fermer-modal-projet");
+    boutonFermerModal.removeEventListener("click", (event) => {
+
+        fermerModalAjoutProjet(event);
+
+    });
+    let stopPropagationDiv = document.querySelector("#modal-ajout-projet .js-modal-stop");
+    stopPropagationDiv.removeEventListener("click", (event) => {
+
+        stopPropagation(event);
+
+    });
+
+}
 
 function stopPropagation(event) {
 
