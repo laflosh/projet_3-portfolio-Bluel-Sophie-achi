@@ -291,14 +291,14 @@ footer nav ul {
 	border-bottom: gray 1px solid;
 }
 
-.imageGalerie{
+.image-galerie{
 	width: 50px;
 	position: relative;
 	display: flex;
 	gap: 10px;
 }
 
-.imageGalerie button{
+.image-galerie button{
 	color: white;
 	background-color: black;
 	font-size: 0.6em;

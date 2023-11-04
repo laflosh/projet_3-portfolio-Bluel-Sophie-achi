@@ -25,6 +25,7 @@ function ouvrirModalGallerie(event){
 
     afficherGallerieProjets();
 
+    //Fonction de gestion fermeture modal galerie
     boiteModal.addEventListener("click", (event) => {
 
         fermerModalGallerie(event);
@@ -44,6 +45,7 @@ function ouvrirModalGallerie(event){
         stopPropagation(event);
 
     });
+
 };
 
 function fermerModalGallerie(event){
@@ -98,20 +100,21 @@ function afficherGallerieProjets(){
 
             }
 
+            gestionEvenementBoutonSupprimer();
+
         });
-
-
 
 };
 
 function conteneurImage(image, id){
 
     let conteneur = document.createElement("div");
-    conteneur.setAttribute("class","imageGalerie");
-    
+    conteneur.setAttribute("class","image-galerie");
+
     let prout = document.createElement("img");
     prout.src = image;
     let boutonSupprimer = document.createElement("button");
+    boutonSupprimer.setAttribute("class","btnSupprimer");
     boutonSupprimer.setAttribute("id","btnSupprimer_"+ id);
     boutonSupprimer.innerText = "X";
 
@@ -119,4 +122,24 @@ function conteneurImage(image, id){
     conteneur.appendChild(boutonSupprimer);
     
     return conteneur;
+};
+
+function gestionEvenementBoutonSupprimer(){
+
+    let boutonSupprimerAll = document.querySelectorAll(".btnSupprimer");
+
+    boutonSupprimerAll.forEach( input => input.addEventListener("click", (event) =>{
+
+        recuperationBoutonSupprimerClick(event);
+
+    }));
+
+}
+
+function recuperationBoutonSupprimerClick(event){
+
+    let boutonCliquer =event.target;
+
+    console.log(boutonCliquer);
+
 };
