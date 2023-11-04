@@ -1,18 +1,32 @@
 export function mainModal(){
 
     initialisationEvent();
+    initialisationModaleListeProjets();
 
 }
 
 function initialisationEvent(){
 
     let boutonModal =document.getElementById("ouvrir-modal");
-    boutonModal.addEventListener("click", (event) =>{
+    boutonModal.addEventListener("click", ouvrirModalGallerie);
 
-        ouvrirModalGallerie(event);
+}
 
-    });
+function initialisationModaleListeProjets(){
 
+    let boiteModal =document.getElementById("modal-galerie");
+
+    //Fonction de gestion fermeture modal galerie
+    boiteModal.addEventListener("click", fermerModalGallerie); 
+
+    let boutonFermerModal = document.getElementById("fermer-modal");
+    boutonFermerModal.addEventListener("click", fermerModalGallerie);
+
+    let stopPropagationDiv = document.querySelector(".js-modal-stop");
+    stopPropagationDiv.addEventListener("click", stopPropagation);
+
+    let boutonModalAjoutProjet =document.getElementById("btn-modal-envoie-projet");
+    boutonModalAjoutProjet.addEventListener("click", ouvrirModalNouveauProjet);
 }
 
 function ouvrirModalGallerie(event){
@@ -20,38 +34,10 @@ function ouvrirModalGallerie(event){
     event.preventDefault();
 
     let boiteModal =document.getElementById("modal-galerie");
-    boiteModal.style.display = null;
+    boiteModal.style.display = 'flex';
     boiteModal.setAttribute("aria-hidden", false);
 
     afficherGallerieProjets();
-
-    //Fonction de gestion fermeture modal galerie
-    boiteModal.addEventListener("click", (event) => {
-
-        fermerModalGallerie(event);
-
-    }); 
-
-    let boutonFermerModal = document.getElementById("fermer-modal");
-    boutonFermerModal.addEventListener("click", (event) => {
-
-        fermerModalGallerie(event);
-
-    });
-
-    let stopPropagationDiv = document.querySelector(".js-modal-stop");
-    stopPropagationDiv.addEventListener("click", (event) => {
-
-        stopPropagation(event);
-
-    });
-
-    let boutonModalAjoutProjet =document.getElementById("btn-modal-envoie-projet");
-    boutonModalAjoutProjet.addEventListener("click", (event) =>{
-
-        ouvrirModalNouveauProjet(event);
-
-    });
 
 };
 
@@ -60,26 +46,8 @@ function fermerModalGallerie(event){
     event.preventDefault();
 
     let boiteModal =document.getElementById("modal-galerie");
-    boiteModal.style.display = "none";
+    boiteModal.style.display = 'none';
     boiteModal.setAttribute("aria-hidden", true);
-
-    boiteModal.removeEventListener("click", (event) => {
-
-        fermerModalGallerie(event);
-
-    })
-    let boutonFermerModal = document.getElementById("fermer-modal");
-    boutonFermerModal.removeEventListener("click", (event) => {
-
-        fermerModalGallerie(event);
-
-    });
-    let stopPropagationDiv = document.querySelector(".js-modal-stop");
-    stopPropagationDiv.removeEventListener("click", (event) => {
-
-        stopPropagation(event);
-
-    });
 
 };
 
@@ -97,25 +65,13 @@ function ouvrirModalNouveauProjet(event){
 
 
     //Fonction de gestion fermeture modal ajout projet
-    boiteModal.addEventListener("click", (event) => {
-
-        fermerModalAjoutProjet(event);
-
-    }); 
+    boiteModal.addEventListener("click", fermerModalAjoutProjet); 
 
     let boutonFermerModal = document.getElementById("fermer-modal-projet");
-    boutonFermerModal.addEventListener("click", (event) => {
-
-        fermerModalAjoutProjet(event);
-
-    });
+    boutonFermerModal.addEventListener("click", fermerModalAjoutProjet);
 
     let stopPropagationDiv = document.querySelector("#modal-ajout-projet .js-modal-stop");
-    stopPropagationDiv.addEventListener("click", (event) => {
-
-        stopPropagation(event);
-
-    });
+    stopPropagationDiv.addEventListener("click", stopPropagation(event));
 
 };
 
@@ -206,8 +162,10 @@ function gestionEvenementBoutonSupprimer(){
 
     boutonSupprimerAll.forEach( input => input.addEventListener("click", (event) =>{
 
-        recuperationBoutonSupprimerClick(event);
-        afficherGallerieProjets();
+        if(confirm('Voulez-vous supprimer ce travail ?')){
+            event.preventDefault();
+            recuperationBoutonSupprimerClick(event);
+        }
 
     }));
 
@@ -233,12 +191,14 @@ function supprimerProjet(id){
         method : "DELETE",
         headers : {
             "Content-type" : "application/json",
-            "Authorization" : `Bearer : ${tokenAdmin.token}`
+            "Authorization" : `Bearer ${tokenAdmin.token}`
         }
     };
 
     console.log(data);
 
-    fetch("http://localhost:5678/api/works/" + id, data);
+    fetch("http://localhost:5678/api/works/" + id, data).then(reponse => {
+        alert('supprimé')
+    });
 
 }
