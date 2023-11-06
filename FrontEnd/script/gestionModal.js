@@ -19,7 +19,7 @@ function initialisationModaleListeProjets(){
     //Fonction de gestion fermeture modal galerie
     boiteModal.addEventListener("click", fermerModalGallerie); 
 
-    let boutonFermerModal = document.getElementById("fermer-modal");
+    let boutonFermerModal = document.getElementById("fermer-modal-galerie");
     boutonFermerModal.addEventListener("click", fermerModalGallerie);
 
     let stopPropagationDiv = document.querySelector(".js-modal-stop");
@@ -71,7 +71,7 @@ function ouvrirModalNouveauProjet(event){
     boutonFermerModal.addEventListener("click", fermerModalAjoutProjet);
 
     let stopPropagationDiv = document.querySelector("#modal-ajout-projet .js-modal-stop");
-    stopPropagationDiv.addEventListener("click", stopPropagation(event));
+    stopPropagationDiv.addEventListener("click", stopPropagation);
 
 };
 
@@ -88,23 +88,13 @@ function fermerModalAjoutProjet(event){
     boiteModalAjout.style.display = "none";
     boiteModalAjout.setAttribute("aria-hidden", true);
 
-    boiteModal.removeEventListener("click", (event) => {
+    boiteModal.removeEventListener("click", fermerModalAjoutProjet);
 
-        fermerModalAjoutProjet(event);
-
-    })
     let boutonFermerModal = document.getElementById("fermer-modal-projet");
-    boutonFermerModal.removeEventListener("click", (event) => {
-
-        fermerModalAjoutProjet(event);
-
-    });
+    boutonFermerModal.removeEventListener("click", fermerModalAjoutProjet);
+    
     let stopPropagationDiv = document.querySelector("#modal-ajout-projet .js-modal-stop");
-    stopPropagationDiv.removeEventListener("click", (event) => {
-
-        stopPropagation(event);
-
-    });
+    stopPropagationDiv.removeEventListener("click",stopPropagation);
 
 }
 

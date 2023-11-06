@@ -83,7 +83,6 @@ h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 
 h2{
@@ -320,7 +319,7 @@ footer nav ul {
 	padding-bottom: 5px;
 }
 
-#fermer-modal{
+#fermer-modal-galerie{
 	width: 5%;
 	color: black;
 	font-weight: 900;
@@ -348,7 +347,93 @@ footer nav ul {
 }
 
 /** Mise en page partie modal ajout projet **/
+.btn-fermeture{
+	display: flex;
+	justify-content: space-between;
+}
 
+.btn-fermeture button{
+	color: black;
+	font-weight: 700;
+	border: none;
+	padding: 10px;
+}
+
+#modal-ajout-projet h3{
+	margin-top: 10px;
+}
+
+.nouveau-projet{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 70%;
+	margin: 25px 0;
+	margin-left: 65px;
+	padding-bottom: 25px;
+	border-bottom: gray 1px solid;
+}
+
+.ajout-photo{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #e8f1f6;
+	height: 125px;
+	margin: 15px 0;
+}
+
+.ajout-photo .btn{
+	color: #306685;
+	background-color: #cbd6dc;
+	width: 125px;
+	font-size: 0.8em;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 15px;
+	padding: 10px;
+}
+
+.ajout-photo p{
+	font-size: 0.6em;
+	margin-bottom: 20px;
+}
+
+.nouveau-projet input,
+.nouveau-projet select{
+	height: 35px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 10px;
+}
+
+.nouveau-projet select{
+	background-color: white;
+}
+
+.nouveau-projet label{
+	font-size: 0.8em;
+	margin-bottom: 15px;
+}
+
+#btn-envoie-projet{
+	font-family: 'Syne';
+	width: 195px;
+	font-size: 0.9em;
+	color: white;
+	background-color: #a7a7a7;
+	margin : 5px auto ;
+	padding: 7.5px;
+	text-align: center;
+	border: none;
+	border-radius: 60px ;
+}
+
+#btn-envoie-projet:hover{
+	background-color: #1D6154;
+}
 /** Mise en page login.html **/
 #form-login > *{
 	text-align: center;

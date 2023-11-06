@@ -106,7 +106,7 @@
 
 			<div class="modal-contenue js-modal-stop">
 
-				<button id="fermer-modal">X</button>
+				<button id="fermer-modal-galerie">X</button>
 
 				<h3>Galerie photo</h3>
 
@@ -124,13 +124,18 @@
 
 			<div class="modal-contenue js-modal-stop">
 
-				<button id="fermer-modal-projet"> <--</button>
+				<div class="btn-fermeture">
+
+					<button id="fermer-modal-projet"> <--</button>
+					<button id="fermer-modal">X</button>
+
+				</div>
 
 				<h3>Ajout photo</h3>
 
 				<form class="nouveau-projet">
 
-					<div>
+					<div class="ajout-photo">
 						<label for="projet" class="btn">+ Ajouter photo</label>
 						<input id="projet" style="visibility:hidden;" type="file" accept=".jpg, .png"required>
 						<p>jpg. png: 4mo max</p>
@@ -151,7 +156,7 @@
 
 				</form>
 
-				<button id="btn-envoie-projet">Valider</button>
+				<input type="submit" value="Valider" id="btn-envoie-projet">
 
 			</div>
 
