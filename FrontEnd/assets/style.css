@@ -253,6 +253,10 @@ footer nav ul {
 	margin-left: 40px;
 }
 
+#ouvrir-modal i{
+	padding-right: 10px;
+}
+
 .modal{
 	position: fixed;
 	display: flex;
@@ -301,7 +305,6 @@ footer nav ul {
 	color: white;
 	background-color: black;
 	font-size: 0.6em;
-	text-align: center;
 	width: 15px;
 	height: 15px;
 	border: none;
@@ -310,6 +313,12 @@ footer nav ul {
 	position: absolute;
 	top: 8px;
 	left: 38px;
+}
+
+.image-galerie button i{
+	position: absolute;
+	top: 4px;
+	left: 4px;
 }
 
 .modal img{
@@ -359,19 +368,20 @@ footer nav ul {
 	padding: 10px;
 }
 
-#modal-ajout-projet h3{
-	margin-top: 10px;
+.element{
+	display: flex;
+	flex-direction: column;
+	border-bottom: gray 1px solid;
+	padding-bottom: 20px;
 }
 
-.nouveau-projet{
+#nouveau-projet{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: 70%;
 	margin: 25px 0;
 	margin-left: 65px;
-	padding-bottom: 25px;
-	border-bottom: gray 1px solid;
 }
 
 .ajout-photo{
@@ -380,8 +390,12 @@ footer nav ul {
 	align-items: center;
 	justify-content: center;
 	background-color: #e8f1f6;
-	height: 125px;
-	margin: 15px 0;
+	height: 150px;
+}
+
+.ajout-photo input{
+	padding: 0;
+	margin: 0;
 }
 
 .ajout-photo .btn{
@@ -393,29 +407,37 @@ footer nav ul {
 	text-align: center;
 	border-radius: 15px;
 	padding: 10px;
+	cursor: pointer;
+}
+
+.ajout-photo i{
+	color: #b9c5cc;
+	font-size: 4em;
+	margin-top: 20px;
+	margin-bottom: 5px;
 }
 
 .ajout-photo p{
 	font-size: 0.6em;
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
-.nouveau-projet input,
-.nouveau-projet select{
+#nouveau-projet #nom-projet,
+#nouveau-projet select{
 	height: 35px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	margin-bottom: 10px;
+	margin-bottom: 7px;
 }
 
-.nouveau-projet select{
+#nouveau-projet select{
 	background-color: white;
 }
 
-.nouveau-projet label{
+.intitule{
 	font-size: 0.8em;
-	margin-bottom: 15px;
+	margin: 15px 0;
 }
 
 #btn-envoie-projet{
@@ -425,6 +447,7 @@ footer nav ul {
 	color: white;
 	background-color: #a7a7a7;
 	margin : 5px auto ;
+	margin-top: 20px;
 	padding: 7.5px;
 	text-align: center;
 	border: none;
@@ -470,7 +493,8 @@ footer nav ul {
 	font-weight: 500;
 }
 
-#messageErreur{
+#messageErreur, 
+#messageErreurLog{
 	display: block;
 	width: 100%;
 	font-size: 1.2em;

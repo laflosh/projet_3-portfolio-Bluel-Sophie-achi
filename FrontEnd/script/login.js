@@ -58,8 +58,17 @@ function recupererToken() {
 
             } else if (resultat.message === "user not found") {
 
-                affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
+                
+                let spanErreurLog = document.getElementById("messageErreurLog");
+            
+                if (spanErreurLog === null){
+                    affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
 
+                } else {
+                    spanErreurLog.remove();
+                    affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
+                }
+                    
             }
         })
         .catch( (error) => {
@@ -103,7 +112,7 @@ function affichageMessageErreur(msg) {
 
     let messageErreur = document.createElement("span");
     messageErreur.innerText = msg;
-    messageErreur.setAttribute("id", "messageErreur");
+    messageErreur.setAttribute("id", "messageErreurLog");
 
     formConnexionAdmin.appendChild(messageErreur);
 

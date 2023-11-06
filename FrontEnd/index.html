@@ -11,6 +11,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 		<meta name="description" content="">
+		<script src="https://kit.fontawesome.com/ee8d67c4fd.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="./assets/style.css">
 
 	</head>
@@ -67,7 +68,7 @@
 
 		<section id="portfolio">
 
-			<h2>Mes Projets <button id="ouvrir-modal" style="display: none">modifier</button></h2>
+			<h2>Mes Projets <button id="ouvrir-modal" style="display: none"><i class="fa-regular fa-pen-to-square"></i>modifier</button></h2>
 
 			<section class="filtres">
 
@@ -106,7 +107,7 @@
 
 			<div class="modal-contenue js-modal-stop">
 
-				<button id="fermer-modal-galerie">X</button>
+				<button id="fermer-modal-galerie"><i class="fa-solid fa-x"></i></button>
 
 				<h3>Galerie photo</h3>
 
@@ -126,37 +127,42 @@
 
 				<div class="btn-fermeture">
 
-					<button id="fermer-modal-projet"> <--</button>
-					<button id="fermer-modal">X</button>
+					<button id="fermer-modal-projet"><i class="fa-solid fa-arrow-left"></i></button>
+					<button id="fermer-modals"><i class="fa-solid fa-x"></i></button>
 
 				</div>
 
 				<h3>Ajout photo</h3>
 
-				<form class="nouveau-projet">
+				<form id="nouveau-projet">
 
-					<div class="ajout-photo">
-						<label for="projet" class="btn">+ Ajouter photo</label>
-						<input id="projet" style="visibility:hidden;" type="file" accept=".jpg, .png"required>
-						<p>jpg. png: 4mo max</p>
+					<div class="element">
+
+						<div class="ajout-photo">
+							<i class="fa-regular fa-image"></i>
+							<label for="projet" class="btn">+ Ajouter photo</label>
+							<input id="projet" name="image" style="visibility:hidden;" type="file" accept=".jpg, .png">
+							<p>jpg. png: 4mo max</p>
+						</div>
+
+						<label for="nom-projet" class="intitule">Titre</label>
+						<input type="text" id="nom-projet" name="title" >
+						
+						<label for="categorie" class="intitule">Categorie</label>
+						<select name="category" id="categorie" >
+
+							<option value=""></option>
+							<option value="1">Objets</option>
+							<option value="2">Appartements</option>
+							<option value="3">Hotels & restaurants</option>
+
+						</select>
+
 					</div>
 
-					<label for="nom-projet">Titre</label>
-					<input type="text" id="nom-projet" name="nom-projet" required>
-					
-					<label for="categorie">Categorie</label>
-					<select name="categorie" id="categorie">
-
-						<option value=""></option>
-						<option value="Objets">Objets</option>
-						<option value="Appartements">Appartements</option>
-						<option value="Hotels & restaurants">Hotels & restaurants</option>
-
-					</select>
+					<button id="btn-envoie-projet">Valider</button>
 
 				</form>
-
-				<input type="submit" value="Valider" id="btn-envoie-projet">
 
 			</div>
 
