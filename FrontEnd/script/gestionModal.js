@@ -1,3 +1,5 @@
+import  {initialisationPage}  from "./index.js";
+
 export function mainModal(){
 
     initialisationEvent();
@@ -133,7 +135,8 @@ function afficherGallerieProjets(){
 
             }
 
-            gestionEvenementBoutonSupprimer();
+            gestionEvenementBoutonSupprimer()
+            
 
         });
 
@@ -144,14 +147,14 @@ function conteneurImage(image, id){
     let conteneur = document.createElement("div");
     conteneur.setAttribute("class","image-galerie");
 
-    let prout = document.createElement("img");
-    prout.src = image;
+    let image = document.createElement("img");
+    image.src = image;
     let boutonSupprimer = document.createElement("button");
     boutonSupprimer.setAttribute("class","btnSupprimer");
     boutonSupprimer.setAttribute("id", id);
     boutonSupprimer.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 
-    conteneur.appendChild(prout);
+    conteneur.appendChild(image);
     conteneur.appendChild(boutonSupprimer);
     
     return conteneur;
@@ -195,7 +198,11 @@ function supprimerProjet(id){
 
     fetch("http://localhost:5678/api/works/" + id, data)
     .then(reponse => {
+
         alert('supprimé')
+        afficherGallerieProjets();
+        initialisationPage();
+
     });
 
 }
@@ -225,7 +232,13 @@ function requeteNouveauProjet(){
     }
 
     fetch("http://localhost:5678/api/works", data)
-    .then(response => response.json())
+    .then(response => {
+
+        affichageMessage("Projet ajouter");
+        initialisationPage();
+        afficherGallerieProjets();
+        
+    })
     .catch((error) =>{
         // gestion de l'erreur pour prévenir l'utilisateur
         console.log(error);

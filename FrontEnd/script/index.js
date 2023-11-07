@@ -1,16 +1,14 @@
 import  {mainModal}  from "./gestionModal.js";
 
-
-
 main ();
 
 function main(){
 
-    initialisationPage()
+    initialisationPage();
     
 };
 
-async function initialisationPage(){
+export async function initialisationPage(){
 
     //Récupération des données au lancements de la page
     let projets = await fetch("http://localhost:5678/api/works")
