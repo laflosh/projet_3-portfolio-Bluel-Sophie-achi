@@ -128,7 +128,7 @@ function afficherGallerieProjets(){
 
             for (let i = 0; i < resultat.length ; i++){
 
-                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl, i + 1));
+                galerieImage.appendChild(conteneurImage(resultat[i].imageUrl, resultat[i].id));
 
             }
 
@@ -163,6 +163,7 @@ function gestionEvenementBoutonSupprimer(){
     boutonSupprimerAll.forEach( input => input.addEventListener("click", (event) =>{
 
         if(confirm('Voulez-vous supprimer ce travail ?')){
+
             event.preventDefault();
             recuperationBoutonSupprimerClick(event);
         }
@@ -216,7 +217,7 @@ function requeteNouveauProjet(){
 
         method : "POST",
         headers : {
-            "Content-type" : "multipart/form-data",
+            //"Content-type" : "multipart/form-data",
             "Authorization" : `Bearer ${recupTokenLocalStorage()}`
         },
         body : recuperationDonneesNouveauProjet()
@@ -247,6 +248,7 @@ function recuperationDonneesNouveauProjet(){
     let categorie = document.getElementById("categorie");
 
     let data = new FormData();
+    
         data.append("image",image.files[0]);
         data.append("title", titre.value);
         data.append("category",categorie.value);
