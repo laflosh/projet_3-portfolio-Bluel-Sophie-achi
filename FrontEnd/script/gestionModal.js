@@ -63,6 +63,7 @@ function ouvrirModalNouveauProjet(event){
     boiteModalAjout.style.display = null;
     boiteModalAjout.setAttribute("aria-hidden", false);
 
+    afficherImageDansForm();
     envoieNouveauProjet();
 
     //Fonction de gestion fermeture modal ajout projet
@@ -164,8 +165,8 @@ function gestionEvenementBoutonSupprimer(){
 
         if(confirm('Voulez-vous supprimer ce travail ?')){
 
-            event.preventDefault();
             recuperationBoutonSupprimerClick(event);
+
         }
 
     }));
@@ -174,9 +175,10 @@ function gestionEvenementBoutonSupprimer(){
 
 function recuperationBoutonSupprimerClick(event){
 
-    let boutonCliquer =event.target.id;
+    
+    let boutonCliquer = event.target.id;
 
-    console.log(boutonCliquer);
+    console.log(boutonCliquer)
     supprimerProjet(boutonCliquer);
 
 };
@@ -191,9 +193,8 @@ function supprimerProjet(id){
         }
     };
 
-    console.log(data);
-
-    fetch("http://localhost:5678/api/works/" + id, data).then(reponse => {
+    fetch("http://localhost:5678/api/works/" + id, data)
+    .then(reponse => {
         alert('supprimé')
     });
 
@@ -217,7 +218,6 @@ function requeteNouveauProjet(){
 
         method : "POST",
         headers : {
-            //"Content-type" : "multipart/form-data",
             "Authorization" : `Bearer ${recupTokenLocalStorage()}`
         },
         body : recuperationDonneesNouveauProjet()
@@ -248,7 +248,7 @@ function recuperationDonneesNouveauProjet(){
     let categorie = document.getElementById("categorie");
 
     let data = new FormData();
-    
+
         data.append("image",image.files[0]);
         data.append("title", titre.value);
         data.append("category",categorie.value);
@@ -270,6 +270,25 @@ function affichageMessage(msg) {
     formEnvoieProjet.appendChild(messageErreur);
 
 };
+
+function afficherImageDansForm(){
+
+    let input = document.getElementById("projet");
+
+    input.addEventListener("change", () =>{
+        let image = input.files[0];
+        let imageElement = document.createElement("img");
+        imageElement.src = window.URL.createObjectURL(image);
+
+        document.querySelector(".ajout-photo i").style.display = "none";
+        document.querySelector(".ajout-photo label").style.display = "none";
+        document.querySelector(".ajout-photo p").style.display = "none";
+        
+        document.getElementById("imagePreviewContainer").innerHTML = "";
+        document.getElementById("imagePreviewContainer").appendChild(imageElement);
+    })
+
+}
 
 function recupTokenLocalStorage(){
 

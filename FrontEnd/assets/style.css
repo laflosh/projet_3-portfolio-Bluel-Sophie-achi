@@ -385,6 +385,7 @@ footer nav ul {
 }
 
 .ajout-photo{
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -420,6 +421,15 @@ footer nav ul {
 .ajout-photo p{
 	font-size: 0.6em;
 	margin-bottom: 25px;
+}
+
+#imagePreviewContainer img{
+	position: absolute;
+	top: -5px;
+	left: 104px;
+
+	width: 105px;
+	height: 150px;
 }
 
 #nouveau-projet #nom-projet,
