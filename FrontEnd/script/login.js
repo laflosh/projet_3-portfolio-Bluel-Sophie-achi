@@ -26,26 +26,34 @@ function valideForm(event) {
 
     event.preventDefault();
 
-    /*
+    let datas=recuperationDataDuForm()
+
     //Check des donénes saisient
-    if (!checkForm()) {
-        affichageMessageErreur("L'e-mail ou le mot de passe est incorrect")
+    if (!verificationForm(datas) === true) {
+        let spanErreurLog = document.getElementById("messageErreurLog");
+            
+        if (spanErreurLog === null){
+            affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
+
+        } else {
+            spanErreurLog.remove();
+            affichageMessageErreur("L'e-mail ou le mot de passe est incorrect");
+        }
         return;
     }
-    */
 
-    recupererToken();
+
+    recupererToken(datas);
 
 };
 
-function recupererToken() {
+function recupererToken(datas) {
 
     let data = {
 
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: recuperationDataDuForm()
-    };
+        body:  JSON.stringify(datas) };
 
     fetch("http://localhost:5678/api/users/login", data)
         .then(tokenAdmin => tokenAdmin.json())
@@ -88,7 +96,9 @@ function recuperationDataDuForm() {
 
     };
 
-    return JSON.stringify(identifiantUtilisateur);
+    
+
+    return identifiantUtilisateur;
 
 };
 
@@ -105,6 +115,39 @@ function sauvegardeLocalstorage(element) {
     window.localStorage.setItem("token", valeursElement);
 
 }
+
+function verificationForm(datas){
+
+    if(validerEmail(datas.email) === false || validerMotDePasse(datas.password) === false){
+
+        return false;
+
+    } else {
+
+        return true;
+
+    };
+
+};
+
+function validerMotDePasse(mdp){
+
+    if (mdp.length < 2){
+        
+        return false
+
+    };
+};
+
+function validerEmail(email){
+
+    let emailRegex = new RegExp("[a-z0-9.-_]+@+[a-z0-9.-_]+\\.[a-z0-9.-_]+");
+
+    if (!emailRegex.test(email)){
+
+        return false
+    };
+};
 
 function affichageMessageErreur(msg) {
 

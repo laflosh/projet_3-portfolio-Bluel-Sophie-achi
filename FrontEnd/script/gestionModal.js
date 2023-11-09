@@ -1,4 +1,4 @@
-import  {initialisationPage}  from "./index.js";
+import  {main , recupTokenLocalStorage}  from "./index.js";
 
 export function mainModal(){
 
@@ -124,8 +124,6 @@ function afficherGallerieProjets(){
     fetch("http://localhost:5678/api/works")
         .then(projets => projets.json())
         .then((resultat) => {
-
-            console.log(resultat);
         
             let galerieImage = document.querySelector(".modal .gallery");
 
@@ -142,19 +140,19 @@ function afficherGallerieProjets(){
 
 };
 
-function conteneurImage(image, id){
+function conteneurImage(img, id){
 
     let conteneur = document.createElement("div");
     conteneur.setAttribute("class","image-galerie");
 
-    let image = document.createElement("img");
-    image.src = image;
+    let imageProjets = document.createElement("img");
+    imageProjets.src = img;
     let boutonSupprimer = document.createElement("button");
     boutonSupprimer.setAttribute("class","btnSupprimer");
     boutonSupprimer.setAttribute("id", id);
     boutonSupprimer.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 
-    conteneur.appendChild(image);
+    conteneur.appendChild(imageProjets);
     conteneur.appendChild(boutonSupprimer);
     
     return conteneur;
@@ -188,11 +186,13 @@ function recuperationBoutonSupprimerClick(event){
 
 function supprimerProjet(id){
 
+    let tokenAdmin = recupTokenLocalStorage();
+
     let data = {
         method : "DELETE",
         headers : {
             "Content-type" : "application/json",
-            "Authorization" : `Bearer ${recupTokenLocalStorage()}`
+            "Authorization" : `Bearer ${tokenAdmin.token}`
         }
     };
 
@@ -201,7 +201,7 @@ function supprimerProjet(id){
 
         alert('supprimé')
         afficherGallerieProjets();
-        initialisationPage();
+        main();
 
     });
 
@@ -221,22 +221,38 @@ function envoieNouveauProjet(){
 
 function requeteNouveauProjet(){
 
+    let tokenAdmin = recupTokenLocalStorage();
+
     let data = {
 
         method : "POST",
         headers : {
-            "Authorization" : `Bearer ${recupTokenLocalStorage()}`
+            "Authorization" : `Bearer ${tokenAdmin.token}`
         },
         body : recuperationDonneesNouveauProjet()
 
     }
 
     fetch("http://localhost:5678/api/works", data)
-    .then(response => {
+    .then(reponse => {
 
-        affichageMessage("Projet ajouter");
-        initialisationPage();
-        afficherGallerieProjets();
+        if(reponse.ok === true){
+
+            affichageMessage("Projet ajouter");
+            main();
+            afficherGallerieProjets();
+
+        } else {
+        
+            let spanErreur = document.getElementById("messageErreur");
+
+            if (spanErreur === null){
+            affichageMessage("Les informations renseignées ne sont pas correctes");
+            } else {
+                spanErreur.remove();
+                affichageMessage("Les informations renseignées ne sont pas correctes");
+            }
+        };
         
     })
     .catch((error) =>{
@@ -300,14 +316,5 @@ function afficherImageDansForm(){
         document.getElementById("imagePreviewContainer").innerHTML = "";
         document.getElementById("imagePreviewContainer").appendChild(imageElement);
     })
-
-}
-
-function recupTokenLocalStorage(){
-
-    let tokenAdmin = localStorage.getItem("token");
-    tokenAdmin = JSON.parse(tokenAdmin);
-
-    return tokenAdmin.token
 
 }

@@ -2,19 +2,23 @@ import  {mainModal}  from "./gestionModal.js";
 
 main ();
 
-function main(){
-
-    initialisationPage();
+export function main(){
+    let url="http://localhost:5678/api/"
+    initialisationPage(url);
     
 };
 
-export async function initialisationPage(){
+async function initialisationPage(url){
 
     //Récupération des données au lancements de la page
-    let projets = await fetch("http://localhost:5678/api/works")
-    .then(projets => projets.json());
+    let projets = await fetch(url + "works")
+    .then(projets => projets.json())
+    .catch((e)=> {
+        console.log(e);
+        return;
+    });
 
-    let categories = await fetch("http://localhost:5678/api/categories")
+    let categories = await fetch(url +"categories")
     .then(categories => categories.json());
 
     afficherProjets(projets);
@@ -124,16 +128,15 @@ function filtreProjets(projets,categories){
 
 function verificationAdmin(projets , categories){
 
-    let tokenAdmin = window.localStorage.getItem("token");
-    tokenAdmin = JSON.parse(tokenAdmin);
+    let token = recupTokenLocalStorage();
 
-    if (tokenAdmin === null){
+    if (token === null){
 
         afficherBoutonFiltres(categories);
         gestionEvenementFiltre(projets , categories);
         console.log("pas admin");
 
-    } else if (tokenAdmin.userId === 1){
+    } else if (token.userId === 1) {
 
         affichageAdmin();
         mainModal();
@@ -169,3 +172,21 @@ function affichageAdmin(){
     })
 
 }
+
+
+export function recupTokenLocalStorage(){
+
+    let tokenAdmin = localStorage.getItem("token");
+    tokenAdmin = JSON.parse(tokenAdmin);
+
+    if (tokenAdmin === null){
+        
+        return null;    
+    
+    } else if (tokenAdmin.userId === 1) {
+
+        return tokenAdmin;
+
+    };
+
+};
