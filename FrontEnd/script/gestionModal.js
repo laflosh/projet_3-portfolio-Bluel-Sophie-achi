@@ -238,7 +238,18 @@ function requeteNouveauProjet(){
 
         if(reponse.ok === true){
 
-            affichageMessage("Projet ajouter");
+                    
+            let spanProjetAjouter = document.getElementById("messageErreur");
+
+            if (spanProjetAjouter === null){
+
+                affichageMessage("Projet ajouter");
+            } else {
+
+                spanProjetAjouter.remove();
+                affichageMessage("Projet ajouter");
+
+            }
             main();
             afficherGallerieProjets();
 

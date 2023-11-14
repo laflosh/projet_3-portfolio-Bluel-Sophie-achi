@@ -14,7 +14,20 @@ async function initialisationPage(url){
     let projets = await fetch(url + "works")
     .then(projets => projets.json())
     .catch((e)=> {
+
         console.log(e);
+
+        let spanErreur = document.getElementById("messageErreur");
+            
+        if (spanErreur === null){
+
+            affichageMessageErreur("Le serveur est indisponible, veuillez réessayer plus tard.");
+
+        } else {
+
+            spanErreur.remove();
+            affichageMessageErreur("Le serveur est indisponible, veuillez réessayer plus tard.");
+        }
         return;
     });
 
@@ -188,5 +201,17 @@ export function recupTokenLocalStorage(){
         return tokenAdmin;
 
     };
+
+};
+
+function affichageMessageErreur(msg) {
+
+    let affichageProjet = document.getElementById("portfolio");
+
+    let messageErreur = document.createElement("span");
+    messageErreur.innerText = msg;
+    messageErreur.setAttribute("id", "messageErreur");
+
+    affichageProjet.appendChild(messageErreur);
 
 };
